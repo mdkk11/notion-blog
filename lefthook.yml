@@ -1,0 +1,10 @@
+pre-commit:
+  commands:
+    type-check:
+      run: npx tsc --noEmit
+    eslint:
+      glob: '*.{js,jsx,ts,tsx}'
+      run: npx next lint --fix --file {staged_files}
+    prettier:
+      glob: '*.{js,jsx,ts,tsx}'
+      run: npx prettier --write {staged_files}

@@ -1,0 +1,41 @@
+.root {
+  max-height: calc(100dvh - var(--header-height) - 24px);
+  overflow-y: auto;
+}
+
+.tocTitle {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+
+.toc {
+  overflow-wrap: break-word;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.tocList {
+  list-style: none;
+}
+
+.tocList .tocList {
+  padding-left: 24px;
+}
+
+.tocLink {
+  display: block;
+  padding: 8px 0;
+  color: hsl(var(--muted-foreground));
+}
+
+.tocLink:hover {
+  color: hsl(var(--foreground));
+  text-decoration: underline;
+}
+
+.tocLinkActive {
+  color: hsl(var(--foreground));
+  font-weight: bold;
+}
