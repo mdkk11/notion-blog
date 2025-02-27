@@ -26,7 +26,7 @@ export const MobileNav = ({ paths }: { paths: readonly Path[] }) => {
         <Menu />
       </Button>
       <div
-        className={`fixed left-0 top-0 z-10 size-full bg-primary duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 z-50 size-full bg-primary duration-300 ease-in-out ${
           isShow ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
