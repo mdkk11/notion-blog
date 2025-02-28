@@ -33,6 +33,7 @@ export const useDropdownMenu = ({
   const data = useFloating({
     open,
     onOpenChange: setOpen,
+    placement,
     middleware: [
       offset(5),
       flip({
