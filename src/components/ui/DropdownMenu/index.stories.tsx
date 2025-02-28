@@ -9,12 +9,6 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof DropdownMenu>
-
-export default meta
-type Story = StoryObj<typeof meta>
-
-export const Default: Story = {
   args: {
     children: (
       <ul>
@@ -26,4 +20,28 @@ export const Default: Story = {
     ),
     trigger: <button>OPEN</button>,
   },
+} satisfies Meta<typeof DropdownMenu>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {}
+
+export const InitialOpen: Story = {
+  args: { options: { initialOpen: true } },
+}
+
+export const PlacementTop: Story = {
+  args: { options: { placement: 'top', initialOpen: true } },
+}
+export const PlacementRight: Story = {
+  args: { options: { placement: 'right', initialOpen: true } },
+}
+
+export const PlacementLeft: Story = {
+  args: { options: { placement: 'left', initialOpen: true } },
+}
+
+export const PlacementBottom: Story = {
+  args: { options: { placement: 'bottom', initialOpen: true } },
 }
