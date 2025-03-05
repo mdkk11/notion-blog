@@ -1,1 +1,1 @@
-Link : https://vinyl-tech.net/
+Link : https://vinyl-tech.jp/
