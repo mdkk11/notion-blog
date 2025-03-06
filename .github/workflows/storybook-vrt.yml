@@ -1,0 +1,62 @@
+name: VRT
+
+on:
+  deployment_status:
+
+jobs:
+  screenshots:
+    # Preview Environment へのデプロイが成功した時に実行する
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    container:
+      image: mcr.microsoft.com/playwright:v1.50.1-noble
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3.5.1
+        with:
+          node-version-file: .node-version
+      - run: npm install
+        shell: bash
+
+      - run: npm run storybook:build
+      - run: npm run storybook:start
+      - run: npm run playwright:update
+      - run: npm run storybook:vrt
+
+      # 失敗時に理由がわかるよう、失敗したスクリーンショットをアップロードする
+      - name: Upload failed screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrt-failed-screenshots-${{ github.sha }}
+          path: test-results
+
+  deploy-report:
+    needs: screenshots
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+        shell: bash
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload HTML report
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: playwright-report
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
