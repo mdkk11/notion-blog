@@ -9,7 +9,11 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook:build": "storybook build",
+    "storybook:start": "http-server storybook-static -p 8080",
+    "storybook:vrt": "bash scripts/storybook-vrt.sh",
+    "playwright": "playwright test",
+    "playwright:update": "playwright test --update-snapshots",
     "test": "vitest"
   },
   "dependencies": {
@@ -43,6 +47,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.50.1",
     "@storybook/addon-essentials": "^8.5.3",
     "@storybook/addon-interactions": "^8.5.3",
     "@storybook/addon-onboarding": "^8.5.3",
@@ -70,6 +75,7 @@
     "eslint-plugin-tailwindcss": "^3.18.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "happy-dom": "^16.8.1",
+    "http-server": "^14.1.1",
     "jsdom": "^26.0.0",
     "lefthook": "^1.10.10",
     "msw": "^2.7.0",
