@@ -1,10 +1,10 @@
-name: Storybook VRT
+name: VRT
 on:
   deployment_status:
 jobs:
   playwright:
     if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
-    name: 'Storybook VRT'
+    name: VRT
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.50.1-noble
@@ -15,7 +15,7 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Screenshot for Production
+      - name: Screenshot Pages for Production
         run: npm run playwright:update
         env:
           BASE_URL: https://vinyl-tech.jp/
