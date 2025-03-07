@@ -2,31 +2,20 @@ name: Storybook VRT
 on:
   deployment_status:
 jobs:
-  vrt:
+  playwright:
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    name: 'Storybook VRT'
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.50.1-noble
-      options: --user 1001
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # 全履歴を取得（差分計算に必要）
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-      - name: Build Storybook
-        run: npm run storybook:build
-      - name: Start Storybook server
-        run: npm run storybook:start & wait-on --timeout 60000 http://localhost:8080
-      - name: Update snapshots
-        run: npm run playwright:update -- --update-snapshots
-      - name: Run VRT tests
-        run: npm run playwright:test
-      - name: Check snapshots
-        run: |
-          echo "Checking snapshots..."
-          find ./src/tests/__vrt__/snapshots -name "*.png"
-      - name: Stop Storybook server
-        run: kill $(lsof -t -i:8080)
+      - name: Screenshot for Production
+        run: npm run storybook:vrt:update
+      - name: Compare Screenshot To Preview
+        run: npm run storybook:vrt
