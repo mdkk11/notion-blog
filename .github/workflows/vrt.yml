@@ -16,6 +16,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Screenshot for Production
-        run: npm run storybook:vrt:update
+        run: npm run playwright:update
+        env:
+          BASE_URL: https://vinyl-tech.jp/
       - name: Compare Screenshot To Preview
-        run: npm run storybook:vrt
+        run: npm run playwright
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+      - name: Upload failed screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrt-failed-screenshots-${{ github.sha }}
+          path: test-results
