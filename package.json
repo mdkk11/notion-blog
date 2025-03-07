@@ -11,7 +11,9 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "storybook:start": "http-server storybook-static -p 8080",
-    "storybook:vrt": "bash scripts/storybook-vrt.sh",
+    "storybook:vrt": "npm run storybook:build && concurrently -k --kill-others-on-fail \"npm run storybook:start\" \"wait-on --timeout 30000 http://localhost:8080 && npm run playwright\"",
+    "storybook:vrt:update": "npm run storybook:build && concurrently -k --kill-others-on-fail \"npm run storybook:start\" \"wait-on --timeout 30000 http://localhost:8080 && npm run playwright:update\"",
+    "storybook:vrt:full": "npm run storybook:vrt:update && npm run playwright",
     "playwright": "playwright test",
     "playwright:update": "playwright test --update-snapshots",
     "test": "vitest"
@@ -67,6 +69,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.0.1",
@@ -88,7 +91,8 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "typescript-eslint": "^8.22.0",
-    "vitest": "^3.0.5"
+    "vitest": "^3.0.5",
+    "wait-on": "^8.0.2"
   },
   "msw": {
     "workerDirectory": [
