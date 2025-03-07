@@ -13,10 +13,11 @@ import { defineConfig, devices } from '@playwright/test'
  */
 export default defineConfig({
   testDir: './src/tests/__vrt__',
+  snapshotDir: './src/tests/__vrt__/snapshots',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 4 : undefined,
   reporter: 'html',
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
