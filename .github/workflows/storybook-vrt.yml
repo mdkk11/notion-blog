@@ -18,9 +18,5 @@ jobs:
         run: npm ci
       - name: Screenshot for Production
         run: npm run storybook:vrt:update
-        env:
-          BASE_URL: https://tech-vinyl.jp/
       - name: Compare Screenshot To Preview
         run: npm run storybook:vrt
-        env:
-          BASE_URL: ${{ github.event.deployment_status.environment_url }}
