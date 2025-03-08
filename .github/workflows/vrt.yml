@@ -42,6 +42,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: gh-pages
+          token: ${{ secrets.PAT }}
 
       - name: Set Git User
         run: |
@@ -61,7 +62,10 @@ jobs:
           git commit -m "VRT Report: ${{ github.run_id }} (attempt: ${{ github.run_attempt }})"
 
           for i in {1..5}; do
-            git pull --rebase && git push && break || sleep 10
+            git pull --rebase
+            git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git gh-pages && break || sleep 10
+
+            
           done
 
       - name: Output Report URL
