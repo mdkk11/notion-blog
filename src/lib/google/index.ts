@@ -1,1 +1,3 @@
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+import { env } from '@/env'
+
+export const GA_TRACKING_ID = env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
