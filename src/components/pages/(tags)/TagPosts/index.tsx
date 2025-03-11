@@ -16,7 +16,9 @@ export const Page = ({ ...props }: Props) => {
   return (
     <section aria-label={`${props.tag}記事一覧`} className="space-y-16 py-8">
       <HeadGroup title={`${props.tag} の記事一覧`} as="h1" variant="h1">
-        <AnchorButton href={ROUTE.blog.allPosts()}>All POSTS</AnchorButton>
+        <AnchorButton className="hidden md:block" href={ROUTE.blog.allPosts()}>
+          All POSTS
+        </AnchorButton>
       </HeadGroup>
       <Posts {...props.posts} />
       <Pagination {...props.pagination} />
